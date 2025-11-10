@@ -7,20 +7,33 @@ This pipeline answers key business questions by linking marketing leads to final
 Technologies Used
 
 •	Orchestration: Azure Data Factory (ADF)
+
 •	Storage (Data Lake): Azure Data Lake Storage (ADLS) Gen2
+
 •	Compute (Transformation): Azure Databricks
+
 •	Transformation Language: PySpark
+
 •	Data Sources: Azure SQL Database
+
 •	Data Warehouse (BI Destination): Azure SQL Database
+
 •	BI Tool (Consumer): Power BI
 
 Pipeline Workflow
+
 This project is broken down into three main stages, following a modern data architecture pattern.
+
 1. Ingestion: SQL Database -> Data Lake (Bronze Layer)
+   
 The first step is to extract raw data from the source (an Azure SQL Database) and land it in our data lake.
+
 •	Tool: Azure Data Factory
+
 •	Pattern: A dynamic, metadata-driven pipeline was built.
+
 •	Process:
+
 1.	A Lookup activity queries a metadata table in the SQL DB to get a list of all tables to be copied.
 2.	A ForEach loop iterates over this list of table names.
 3.	Inside the loop, a Copy activity dynamically parameterizes the source (table name) and sink (file name) to copy each table from the SQL DB into our ADLS Gen2 (Bronze) container as raw files (as .csv).
