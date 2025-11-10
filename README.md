@@ -5,6 +5,7 @@ Architecture Diagram: Olist End-to-End Data Engineering Pipeline
 This pipeline answers key business questions by linking marketing leads to final sales, seller demographics, and monetary performance. 
 
 Technologies Used
+
 •	Orchestration: Azure Data Factory (ADF)
 •	Storage (Data Lake): Azure Data Lake Storage (ADLS) Gen2
 •	Compute (Transformation): Azure Databricks
