@@ -67,7 +67,7 @@ This is the core of the project, where all business logic and transformations ar
 
 4.	Final Table: The resulting DataFrame was cleaned, and key columns were selected to create the final PBI_Lead_Performance table.
 
-5. Load: Gold Layer -> Data Warehouse
+3. Load: Gold Layer -> Data Warehouse
    
 The final transformed data is loaded into two destinations, making it robust and available for different use cases.
 
