@@ -39,8 +39,11 @@ The first step is to extract raw data from the source (an Azure SQL Database) an
 3.	Inside the loop, a Copy activity dynamically parameterizes the source (table name) and sink (file name) to copy each table from the SQL DB into our ADLS Gen2 (Bronze) container as raw files (as .csv).
    
 2. Transformation: Bronze -> Silver -> Gold (Databricks)
+   
 This is the core of the project, where all business logic and transformations are applied using PySpark in an Azure Databricks notebook.
+
 •	Tool: Azure Databricks & PySpark
+
 •	Process:
 1.	Read Raw Data: Data is read from the Bronze layer using spark.read.csv() ensuring header and inferSchema options are set.
 2.	Join Data: Four key datasets were joined to create a single, wide table:
@@ -50,13 +53,17 @@ This is the core of the project, where all business logic and transformations ar
 	dbo.olist_order_items (Monetary/sales data for each transaction)
 
 3.	Apply Business Logic:
+   
 	A Left Join strategy was used to connect leads -> deals -> sellers -> sales. This ensures we keep all leads, even those not yet closed, for a complete funnel analysis.
+
 	Created a new column lead_status ("Open" vs. "Closed-Won") based on whether a match was found in the closed_deals table.
+
 	Created a new feature time_to_close_days by calculating the datediff between won_date and first_contact_date.
 
 4.	Final Table: The resulting DataFrame was cleaned, and key columns were selected to create the final PBI_Lead_Performance table.
 
 3. Load: Gold Layer -> Data Warehouse
+   
 The final transformed data is loaded into two destinations, making it robust and available for different use cases.
 •	Tool: PySpark (JDBC & Parquet Writers)
 •	Destination 1 (Data Warehouse):
