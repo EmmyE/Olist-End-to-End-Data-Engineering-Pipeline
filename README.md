@@ -46,10 +46,15 @@ This is the core of the project, where all business logic and transformations ar
 
 •	Process:
 1.	Read Raw Data: Data is read from the Bronze layer using spark.read.csv() ensuring header and inferSchema options are set.
-2.	Join Data: Four key datasets were joined to create a single, wide table:
+   
+2	Join Data: Four key datasets were joined to create a single, wide table:
+
 	dbo.olist_marketing_qualified_leads (All potential leads)
+
 	dbo.olist_closed_deals (Leads that converted)
+
 	dbo.olist_sellers (Demographic info for sellers)
+
 	dbo.olist_order_items (Monetary/sales data for each transaction)
 
 3.	Apply Business Logic:
@@ -62,21 +67,33 @@ This is the core of the project, where all business logic and transformations ar
 
 4.	Final Table: The resulting DataFrame was cleaned, and key columns were selected to create the final PBI_Lead_Performance table.
 
-3. Load: Gold Layer -> Data Warehouse
+5. Load: Gold Layer -> Data Warehouse
    
 The final transformed data is loaded into two destinations, making it robust and available for different use cases.
+
 •	Tool: PySpark (JDBC & Parquet Writers)
+
 •	Destination 1 (Data Warehouse):
+
 o	The final PBI_Lead_Performance DataFrame was written directly to our Azure SQL Database using a JDBC connection.
+
 o	This provides a high-performance, relational endpoint for Power BI to connect to in DirectQuery or Import mode.
+
 •	Destination 2 (Data Lake - Gold Layer):
+
 o	(Best Practice) A copy of the final, clean table is also saved back to the ADLS Gen2 (Gold) container in Parquet format. This serves as the permanent, queryable "source of truth" for the data lakehouse.
 
 Final Output for BI
+
 The project's output is a single, clean table in Azure SQL Database named PBI_Lead_Performance. This table is optimized for BI analysis and can be directly connected to Power BI to build reports that answer key questions like:
+
 •	What is our overall lead-to-sale conversion rate?
+
 •	Which marketing source (origin) generates the most revenue?
+
 •	What is the average time_to_close_days for a lead?
+
 •	Which seller cities (seller_city) are our most valuable?
+
 •	What is the relationship between business_segment and total_revenue?
 
