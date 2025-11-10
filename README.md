@@ -37,6 +37,7 @@ The first step is to extract raw data from the source (an Azure SQL Database) an
 1.	A Lookup activity queries a metadata table in the SQL DB to get a list of all tables to be copied.
 2.	A ForEach loop iterates over this list of table names.
 3.	Inside the loop, a Copy activity dynamically parameterizes the source (table name) and sink (file name) to copy each table from the SQL DB into our ADLS Gen2 (Bronze) container as raw files (as .csv).
+
    
 2. Transformation: Bronze -> Silver -> Gold (Databricks)
    
